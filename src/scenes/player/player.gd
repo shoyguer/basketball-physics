@@ -7,13 +7,11 @@ extends CharacterBody3D
 ## player pick up, carry, drop, and launch physics objects.
 
 
+#region Properties
 ## Emitted when the player looks at a new interactable object.
 signal interactable_focused(target: Node3D)
 ## Emitted when the player stops looking at any interactable.
 signal interactable_unfocused
-
-
-#region Properties
 
 ## Movement speed in metres per second.
 const SPEED: float = 5.0
@@ -25,8 +23,14 @@ const JUMP_FORCE: float = 4.5
 const MOUSE_SENSITIVITY: float = 0.002
 ## Maximum interaction reach in metres.
 const INTERACT_REACH: float = 3.0
-## How far in front of the camera the held object floats.
-const HOLD_DISTANCE: float = 2.0
+## Hold distance when launch power is at maximum (object pulled close).
+const HOLD_DISTANCE_NEAR: float = 0.6
+## Hold distance when launch power is at minimum (object pushed far).
+const HOLD_DISTANCE_FAR: float = 1.0
+## How far to the right the held object drifts from screen-centre.
+const HOLD_RIGHT_OFFSET: float = 0.4
+## Speed at which the right-offset eases in after a grab (1/s).
+const HOLD_SIDE_EASE: float = 4.0
 ## Spring stiffness for the held object pull.
 const HOLD_SPRING: float = 40.0
 ## Damping factor to prevent oscillation while holding.
@@ -34,11 +38,13 @@ const HOLD_DAMP: float = 8.0
 ## Impulse strength when the player walks into a rigid body.
 const PUSH_FORCE: float = 2.0
 ## Minimum impulse when launching at zero power.
-const LAUNCH_FORCE_MIN: float = 9.0
+const LAUNCH_FORCE_MIN: float = 0.5
 ## Maximum impulse when launching at full power.
-const LAUNCH_FORCE_MAX: float = 100.0
+const LAUNCH_FORCE_MAX: float = 25.0
 ## How much each scroll tick changes the launch power (0 to 1 range).
-const SCROLL_STEP: float = 0.1
+const SCROLL_STEP: float = 0.025
+## How much launch power drops per second while an object is held.
+const POWER_DECAY: float = 0.02
 
 @export var gravity_scale: float = 1.0
 
@@ -47,12 +53,12 @@ var _focused_interactable: Node3D = null
 var _held_object: RigidBody3D = null
 var _held_previous_gravity: float = 0.0
 var _launch_power: float = 0.5
+var _hold_side_t: float = 0.0
 
 @onready var _camera: Camera3D = $CameraPivot/Camera3D
 @onready var _camera_pivot: Node3D = $CameraPivot
 @onready var _interact_ray: RayCast3D = $CameraPivot/Camera3D/InteractRay
-@onready var _power_bar: ProgressBar = $HUD/PowerBar
-
+@onready var _hold_ui: UI = $HUD/UI
 #endregion
 
 
@@ -130,7 +136,7 @@ func _handle_interact_press() -> void:
 		_drop_held_object()
 		return
 
-	if _focused_interactable == null: return
+	if not _focused_interactable: return
 
 	if _focused_interactable.has_method("grab"):
 		_grab_object(_focused_interactable as RigidBody3D)
@@ -140,7 +146,7 @@ func _handle_interact_press() -> void:
 
 ## Checks the raycast each frame and updates the focused interactable.
 func _update_interact_ray() -> void:
-	if _held_object != null:
+	if _held_object:
 		_set_focused(null)
 		return
 
@@ -149,7 +155,7 @@ func _update_interact_ray() -> void:
 		return
 
 	var hit: Node3D = _interact_ray.get_collider() as Node3D
-	if hit == null:
+	if not hit:
 		_set_focused(null)
 		return
 
@@ -160,7 +166,7 @@ func _update_interact_ray() -> void:
 ## Walks up the node tree to find the nearest ancestor that is interactable.
 func _find_interactable(node: Node3D) -> Node3D:
 	var current: Node = node
-	while current != null:
+	while current:
 		if current.has_method("interact") or current.has_method("grab"):
 			return current as Node3D
 		current = current.get_parent()
@@ -200,14 +206,15 @@ func _grab_object(body: RigidBody3D) -> void:
 		body.on_grabbed()
 
 	_launch_power = 0.5
-	_power_bar.value = _launch_power * 100.0
-	_power_bar.visible = true
+	_hold_side_t = 0.0
+	_hold_ui.show()
+	_hold_ui.set_power(_launch_power)
 	_set_focused(null)
 
 
 ## Releases the currently held object, restoring its physics state.
 func _drop_held_object() -> void:
-	if _held_object == null: return
+	if not _held_object: return
 
 	_held_object.gravity_scale = _held_previous_gravity
 	_held_object.remove_collision_exception_with(self)
@@ -216,12 +223,12 @@ func _drop_held_object() -> void:
 		_held_object.on_released()
 
 	_held_object = null
-	_power_bar.visible = false
+	_hold_ui.hide()
 
 
 ## Launches the held object forward with force based on the power meter.
 func _launch_held_object() -> void:
-	if _held_object == null: return
+	if not _held_object: return
 
 	var launch_dir: Vector3 = -_camera.global_transform.basis.z
 	var force: float = LAUNCH_FORCE_MIN + (LAUNCH_FORCE_MAX - LAUNCH_FORCE_MIN) * _launch_power
@@ -243,10 +250,18 @@ func _push_rigid_bodies() -> void:
 
 
 ## Pulls the held object toward the hold point using a spring-damper system.
-func _update_held_object(_delta: float) -> void:
-	if _held_object == null: return
+func _update_held_object(delta: float) -> void:
+	if not _held_object: return
 
-	var hold_point: Vector3 = _camera.global_position + (-_camera.global_transform.basis.z * HOLD_DISTANCE)
+	_launch_power = maxf(_launch_power - POWER_DECAY * delta, 0.0)
+	_hold_ui.set_power(_launch_power)
+
+	_hold_side_t = minf(_hold_side_t + HOLD_SIDE_EASE * delta, 1.0)
+
+	var hold_distance: float = lerpf(HOLD_DISTANCE_FAR, HOLD_DISTANCE_NEAR, _launch_power)
+
+	var right_offset: Vector3 = _camera.global_transform.basis.x * HOLD_RIGHT_OFFSET * _hold_side_t
+	var hold_point: Vector3 = _camera.global_position + (-_camera.global_transform.basis.z * hold_distance) + right_offset
 	var offset: Vector3 = hold_point - _held_object.global_position
 	var spring_force: Vector3 = offset * HOLD_SPRING - _held_object.linear_velocity * HOLD_DAMP
 	_held_object.apply_central_force(spring_force * _held_object.mass)
@@ -255,7 +270,7 @@ func _update_held_object(_delta: float) -> void:
 
 ## Adjusts launch power with the mouse scroll wheel.
 func _handle_scroll(event: InputEvent) -> void:
-	if _held_object == null: return
+	if not _held_object: return
 	if not event is InputEventMouseButton: return
 
 	var mb: InputEventMouseButton = event as InputEventMouseButton
@@ -268,6 +283,6 @@ func _handle_scroll(event: InputEvent) -> void:
 	else:
 		return
 
-	_power_bar.value = _launch_power * 100.0
+	_hold_ui.set_power(_launch_power)
 
 #endregion

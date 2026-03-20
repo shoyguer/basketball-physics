@@ -1,10 +1,18 @@
 [gd_scene format=3 uid="uid://dux3ccha4d782"]
 
-[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://e7sofyruoq6o" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://scenes/objects/physics_box.tscn" id="2_box"]
-[ext_resource type="PackedScene" path="res://scenes/objects/physics_ball.tscn" id="3_ball"]
-[ext_resource type="PackedScene" path="res://scenes/door/door.tscn" id="4_door"]
-[ext_resource type="PackedScene" path="res://scenes/basketball_hoop/basketball_hoop.tscn" id="5_hoop"]
+[ext_resource type="PhysicsMaterial" uid="uid://cm2q8nq3nov37" path="res://scenes/objects/physics_box_material.tres" id="2_w7vtx"]
+[ext_resource type="PackedScene" uid="uid://bxe701a2am5mr" path="res://scenes/objects/physics_ball.tscn" id="3_ball"]
+[ext_resource type="PackedScene" uid="uid://c3lurj1bfpdm" path="res://scenes/door/door.tscn" id="4_door"]
+[ext_resource type="PackedScene" uid="uid://btdp6sq8v6yln" path="res://scenes/basketball_hoop/basketball_hoop.tscn" id="5_hoop"]
+
+[sub_resource type="Environment" id="Env_room"]
+background_mode = 1
+background_color = Color(0.04, 0.04, 0.05, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.9, 0.85, 0.82, 1)
+ambient_light_energy = 0.1
 
 [sub_resource type="StandardMaterial3D" id="Mat_floor"]
 albedo_color = Color(0.6, 0.55, 0.45, 1)
@@ -15,7 +23,13 @@ albedo_color = Color(0.9, 0.9, 0.88, 1)
 [sub_resource type="StandardMaterial3D" id="Mat_wall"]
 albedo_color = Color(0.82, 0.78, 0.72, 1)
 
+[sub_resource type="StandardMaterial3D" id="Mat_separator"]
+albedo_color = Color(0.35, 0.3, 0.55, 1)
+
 [node name="Room" type="Node3D" unique_id=260588207]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=444000001]
+environment = SubResource("Env_room")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=2130783421]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 0)
@@ -92,79 +106,122 @@ size = Vector3(0.2, 3, 4.1)
 material = SubResource("Mat_wall")
 
 [node name="Room2FrontWall" type="CSGCombiner3D" parent="Geometry" unique_id=1534432419]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.5, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 4.5, -8)
 use_collision = true
 
 [node name="WallSolid" type="CSGBox3D" parent="Geometry/Room2FrontWall" unique_id=1607498514]
-size = Vector3(8, 3, 0.2)
+size = Vector3(8, 9, 0.2)
 material = SubResource("Mat_wall")
 
 [node name="CorridorCut" type="CSGBox3D" parent="Geometry/Room2FrontWall" unique_id=579213538]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.2296236, 0)
 operation = 2
 size = Vector3(1.7, 2.5, 0.4)
 
 [node name="Room2Floor" type="CSGBox3D" parent="Geometry" unique_id=1149589730]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.1, -11.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.1, -14)
 use_collision = true
-size = Vector3(8, 0.2, 8)
+size = Vector3(8, 0.2, 12)
 material = SubResource("Mat_floor")
 
 [node name="Room2Ceiling" type="CSGBox3D" parent="Geometry" unique_id=972340763]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 3.1, -11.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 9.1, -14)
 use_collision = true
-size = Vector3(8, 0.2, 8)
+size = Vector3(8, 0.2, 12)
 material = SubResource("Mat_ceiling")
 
 [node name="Room2WallBack" type="CSGBox3D" parent="Geometry" unique_id=1288683346]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.5, -15.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 4.5, -20.1)
 use_collision = true
-size = Vector3(8, 3, 0.2)
+size = Vector3(8, 9, 0.2)
 material = SubResource("Mat_wall")
 
 [node name="Room2WallLeft" type="CSGBox3D" parent="Geometry" unique_id=845148710]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4, 1.5, -11.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4, 4.5, -14)
 use_collision = true
-size = Vector3(0.2, 3, 8)
+size = Vector3(0.2, 9, 12)
 material = SubResource("Mat_wall")
 
 [node name="Room2WallRight" type="CSGBox3D" parent="Geometry" unique_id=1292094665]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.5, -11.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 4.5, -14)
 use_collision = true
-size = Vector3(0.2, 3, 8)
+size = Vector3(0.2, 9, 12)
 material = SubResource("Mat_wall")
+
+[node name="SeparatorLeft" type="CSGBox3D" parent="Geometry" unique_id=62241181]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.775, 0.11846727, -11.5)
+use_collision = true
+size = Vector3(3.05, 0.25, 0.2)
+material = SubResource("Mat_separator")
+
+[node name="SeparatorRight" type="CSGBox3D" parent="Geometry" unique_id=186350425]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.775, 0.11846727, -11.5)
+use_collision = true
+size = Vector3(3.05, 0.25, 0.2)
+material = SubResource("Mat_separator")
+
+[node name="SeparatorLeft2" type="CSGBox3D" parent="Geometry" unique_id=1726274817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.775, 0.11846727, -15.892718)
+use_collision = true
+size = Vector3(3.05, 0.25, 0.2)
+material = SubResource("Mat_separator")
+
+[node name="SeparatorRight2" type="CSGBox3D" parent="Geometry" unique_id=2038894043]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.775, 0.11846727, -15.892718)
+use_collision = true
+size = Vector3(3.05, 0.25, 0.2)
+material = SubResource("Mat_separator")
+
+[node name="SeparatorLeft3" type="CSGBox3D" parent="Geometry" unique_id=407327679]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.775, 0.11846727, -13.639489)
+use_collision = true
+size = Vector3(3.05, 0.25, 0.2)
+material = SubResource("Mat_separator")
+
+[node name="SeparatorRight3" type="CSGBox3D" parent="Geometry" unique_id=1650543894]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.775, 0.11846727, -13.639489)
+use_collision = true
+size = Vector3(3.05, 0.25, 0.2)
+material = SubResource("Mat_separator")
 
 [node name="Objects" type="Node3D" parent="." unique_id=1337095705]
 
 [node name="PhysicsBox" parent="Objects" unique_id=1381123762 instance=ExtResource("2_box")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.25, -1.5)
+physics_material_override = ExtResource("2_w7vtx")
 
 [node name="PhysicsBox2" parent="Objects" unique_id=1623289610 instance=ExtResource("2_box")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.75, -1.5)
+physics_material_override = ExtResource("2_w7vtx")
 
 [node name="PhysicsBox3" parent="Objects" unique_id=440458735 instance=ExtResource("2_box")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1121395, 1.298862, -0.55087423)
 mass = 3.0
+physics_material_override = ExtResource("2_w7vtx")
 box_size = Vector3(0.35, 0.35, 0.35)
 
 [node name="PhysicsBox4" parent="Objects" unique_id=1055629384 instance=ExtResource("2_box")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3229349, 0.6117469, 2.6725588)
 mass = 8.0
+physics_material_override = ExtResource("2_w7vtx")
 box_size = Vector3(0.75, 0.75, 0.75)
 
 [node name="PhysicsBox5" parent="Objects" unique_id=64722614 instance=ExtResource("2_box")]
 transform = Transform3D(0.99989045, 0, -0.014799852, 0, 1, 0, 0.014799852, 0, 0.99989045, 2.2658286, 2.0235262, 2.5)
 mass = 2.0
+physics_material_override = ExtResource("2_w7vtx")
 box_size = Vector3(0.3, 0.3, 0.3)
 
 [node name="PhysicsBox6" parent="Objects" unique_id=666247026 instance=ExtResource("2_box")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, -2.5)
 mass = 3.5
+physics_material_override = ExtResource("2_w7vtx")
 box_size = Vector3(0.4, 0.4, 0.4)
 
 [node name="PhysicsBox7" parent="Objects" unique_id=86352886 instance=ExtResource("2_box")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.34934294, -0.5)
 mass = 12.0
+physics_material_override = ExtResource("2_w7vtx")
 box_size = Vector3(1, 1, 1)
 
 [node name="PhysicsBall" parent="Objects" unique_id=97549580 instance=ExtResource("3_ball")]
@@ -180,115 +237,71 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.35, -2)
 mass = 2.0
 ball_radius = 0.35
 
-[node name="Room2Objects" type="Node3D" parent="."]
+[node name="Room2Objects" type="Node3D" parent="." unique_id=479803301]
 
-[node name="R2Box1" parent="Room2Objects" instance=ExtResource("2_box")]
+[node name="R2Box1" parent="Room2Objects" unique_id=1610695065 instance=ExtResource("2_box")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8, 0.25, -9.5)
-box_size = Vector3(0.5, 0.5, 0.5)
+physics_material_override = ExtResource("2_w7vtx")
 
-[node name="R2Box2" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 0.2, -11.0)
-mass = 2.0
-box_size = Vector3(0.3, 0.3, 0.3)
-
-[node name="R2Box3" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0, 0.35, -13.5)
-mass = 8.0
-box_size = Vector3(0.7, 0.7, 0.7)
-
-[node name="R2Box4" parent="Room2Objects" instance=ExtResource("2_box")]
+[node name="R2Box4" parent="Room2Objects" unique_id=1646139488 instance=ExtResource("2_box")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.25, -9.2)
-box_size = Vector3(0.5, 0.5, 0.5)
+physics_material_override = ExtResource("2_w7vtx")
 
-[node name="R2Box5" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.15, -10.3)
-mass = 1.5
-box_size = Vector3(0.3, 0.3, 0.3)
+[node name="R2Box15" parent="Room2Objects" unique_id=877430471 instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8, 0.25, -10)
+physics_material_override = ExtResource("2_w7vtx")
 
-[node name="R2Box6" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.4, -12.0)
-mass = 10.0
-box_size = Vector3(0.8, 0.8, 0.8)
+[node name="R2Ball5" parent="Room2Objects" unique_id=645824162 instance=ExtResource("3_ball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.599819, 0.25, -8.79443)
+mass = 0.7
+ball_radius = 0.21
 
-[node name="R2Box7" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.2, -10.5)
-mass = 2.5
-box_size = Vector3(0.35, 0.35, 0.35)
+[node name="R2Ball6" parent="Room2Objects" unique_id=1075390727 instance=ExtResource("3_ball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4170828, 0.7364701, -9.057543)
+mass = 0.7
+ball_radius = 0.21
 
-[node name="R2Box8" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.5, -14.8)
-mass = 12.0
-box_size = Vector3(1.0, 1.0, 1.0)
+[node name="R2Ball8" parent="Room2Objects" unique_id=1953287240 instance=ExtResource("3_ball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7011044, 0.25, -8.936895)
+mass = 0.7
+ball_radius = 0.22
 
-[node name="R2Box9" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.2, -14.0)
-mass = 3.0
-box_size = Vector3(0.4, 0.4, 0.4)
+[node name="R2Ball7" parent="Room2Objects" unique_id=188945264 instance=ExtResource("3_ball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15617967, 0.25, -10.8)
+mass = 0.7
+ball_radius = 0.21
 
-[node name="R2Box10" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0.25, -14.5)
-box_size = Vector3(0.5, 0.5, 0.5)
+[node name="R2Ball9" parent="Room2Objects" unique_id=1220337236 instance=ExtResource("3_ball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.599819, 0.25, -12.729387)
+mass = 0.7
+ball_radius = 0.21
 
-[node name="R2Box11" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.3, -15.0)
-mass = 6.0
-box_size = Vector3(0.6, 0.6, 0.6)
+[node name="R2Ball10" parent="Room2Objects" unique_id=212517000 instance=ExtResource("3_ball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3923783, 0.5422245, -14.52983)
+mass = 0.7
+ball_radius = 0.21
 
-[node name="R2Box12" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0.15, -12.2)
-mass = 1.0
-box_size = Vector3(0.25, 0.25, 0.25)
+[node name="R2Ball11" parent="Room2Objects" unique_id=2004776120 instance=ExtResource("3_ball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7011044, 0.25, -12.871853)
+mass = 0.7
+ball_radius = 0.21
 
-[node name="R2Box13" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0, 0.2, -11.5)
-mass = 2.0
-box_size = Vector3(0.35, 0.35, 0.35)
-
-[node name="R2Box14" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.45, -13.0)
-mass = 9.0
-box_size = Vector3(0.9, 0.9, 0.9)
-
-[node name="R2Box15" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8, 0.25, -10.0)
-box_size = Vector3(0.5, 0.5, 0.5)
-
-[node name="R2Box16" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 0.15, -9.8)
-mass = 1.5
-box_size = Vector3(0.3, 0.3, 0.3)
-
-[node name="R2Box17" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0, 0.35, -14.5)
-mass = 7.0
-box_size = Vector3(0.65, 0.65, 0.65)
-
-[node name="R2Box18" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, -10.0)
-mass = 3.0
-box_size = Vector3(0.4, 0.4, 0.4)
-
-[node name="R2Box19" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 0.25, -9.0)
-mass = 4.0
-box_size = Vector3(0.45, 0.45, 0.45)
-
-[node name="R2Box20" parent="Room2Objects" instance=ExtResource("2_box")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.3, -13.8)
-mass = 5.0
-box_size = Vector3(0.55, 0.55, 0.55)
+[node name="R2Ball12" parent="Room2Objects" unique_id=1111522140 instance=ExtResource("3_ball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15617967, 0.25, -14.734958)
+mass = 0.7
+ball_radius = 0.21
 
 [node name="Door" parent="." unique_id=1772264260 instance=ExtResource("4_door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -3.8)
 
-[node name="Door2" parent="." instance=ExtResource("4_door")]
+[node name="Door2" parent="." unique_id=1259357938 instance=ExtResource("4_door")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -7.9)
 
-[node name="BasketballHoop" parent="." instance=ExtResource("5_hoop")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -15.625)
-spawn_path = NodePath("../GoldenBallSpawn")
+[node name="BasketballHoop" parent="." unique_id=498318465 node_paths=PackedStringArray("spawn_node") instance=ExtResource("5_hoop")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -19.477093)
+spawn_node = NodePath("../GoldenBallSpawn")
 
-[node name="GoldenBallSpawn" type="Marker3D" parent="."]
+[node name="GoldenBallSpawn" type="Marker3D" parent="." unique_id=26044892]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="CorridorLight" type="OmniLight3D" parent="." unique_id=1867866655]
@@ -297,9 +310,14 @@ light_energy = 0.8
 omni_range = 6.0
 
 [node name="Room2Light" type="OmniLight3D" parent="." unique_id=479075101]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.6, -11.9)
-light_energy = 1.2
-omni_range = 10.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 8, -11)
+light_energy = 1.5
+omni_range = 14.0
+
+[node name="Room2Light2" type="OmniLight3D" parent="." unique_id=594237747]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 8, -17.5)
+light_energy = 1.5
+omni_range = 14.0
 
 [node name="Player" parent="." unique_id=7122863 instance=ExtResource("1_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 1.5)

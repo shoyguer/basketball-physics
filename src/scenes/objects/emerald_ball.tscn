@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://bwysp1qtgc7xh"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://cwqocsych6exe" path="res://scenes/objects/physics_ball_material.tres" id="1_6jhj3"]
+[ext_resource type="Script" uid="uid://bya38h0ld1prx" path="res://scenes/objects/physics_ball.gd" id="1_ball"]
+[ext_resource type="Shader" uid="uid://ccnb0ycx6xk27" path="res://shader/emerald.gdshader" id="2_emerald"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bcktl"]
+radius = 0.25
+
+[sub_resource type="ShaderMaterial" id="Mat_emerald"]
+render_priority = 0
+shader = ExtResource("2_emerald")
+shader_parameter/deep_color = Color(0.01, 0.28, 0.08, 1)
+shader_parameter/glow_color = Color(0.1, 0.72, 0.22, 1)
+shader_parameter/tint_color = Color(0.05, 0.55, 0.35, 1)
+shader_parameter/fresnel_color = Color(0.011764706, 0.2784314, 0.078431375, 1)
+shader_parameter/glow_power = 2.00000002980239
+shader_parameter/refraction_str = 0.6999999843536
+shader_parameter/refraction_bend = 0.08999999798832
+shader_parameter/rim_dark_str = 0.46999998949456
+shader_parameter/rim_dark_power = 3.000000037253
+shader_parameter/fresnel_str = 0.6999999843536
+shader_parameter/roughness = 0.36999999172976
+shader_parameter/specular = 0.999999977648
+shader_parameter/base_alpha = 0.9499999787656
+shader_parameter/clearcoat = 0.749999983236
+shader_parameter/clearcoat_rough = 0.32999999262384
+shader_parameter/facet_strength = 0.499999988824
+
+[node name="EmeraldBall" type="RigidBody3D" unique_id=712340001]
+collision_layer = 3
+physics_material_override = ExtResource("1_6jhj3")
+continuous_cd = true
+script = ExtResource("1_ball")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=802607074]
+shape = SubResource("SphereShape3D_bcktl")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=1286954504]
+radius = 0.25
+radial_segments = 24
+rings = 12
+material = SubResource("Mat_emerald")

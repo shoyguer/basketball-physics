@@ -19,8 +19,8 @@ extends Node
 ## Each build is a pull request or separate commit.
 static var game_version: Dictionary = {
 	"major": "0",
-	"minor": "0",
-	"build": "001",
+	"minor": "1",
+	"build": "000",
 	"label": "alpha"
 }
 ## Human readable game version string.

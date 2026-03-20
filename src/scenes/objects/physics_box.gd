@@ -36,8 +36,18 @@ func _apply_size() -> void:
 
 
 ## Called when the player picks this object up.
+func grab() -> void:
+	pass
+
+
+## Called when this object is carried by the player.
 func on_grabbed() -> void:
 	_highlight.hide_highlight()
+
+
+## Called when the player drops or launches this object.
+func on_released() -> void:
+	pass
 
 
 ## Enables the outline and billboard label.

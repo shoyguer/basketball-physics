@@ -9,7 +9,6 @@ extends Node3D
 ## Fired whenever the door finishes moving to a new state.
 signal state_changed(new_state: State)
 
-
 ## Represents the two stable states the door can be in.
 enum State {
 	## Door is fully closed.
@@ -18,9 +17,8 @@ enum State {
 	OPEN,
 }
 
-
 ## Rotation angle in degrees the door swings to when fully open.
-const OPEN_ANGLE_DEG: float = 90.0
+const OPEN_ANGLE: float = 90.0
 ## Duration in seconds of the open and close swing animation.
 const SWING_DURATION: float = 0.5
 ## If this door should start open or closed.
@@ -39,7 +37,7 @@ func _ready() -> void:
 
 	if start_open:
 		_state = State.OPEN
-		_door_body.rotation_degrees.y = OPEN_ANGLE_DEG
+		_door_body.rotation_degrees.y = OPEN_ANGLE
 
 
 ## Toggles the door between open and closed when the player interacts.
@@ -47,7 +45,7 @@ func interact() -> void:
 	if _is_moving: return
 
 	if _state == State.CLOSED:
-		_swing_to(State.OPEN, OPEN_ANGLE_DEG)
+		_swing_to(State.OPEN, OPEN_ANGLE)
 	else:
 		_swing_to(State.CLOSED, 0.0)
 

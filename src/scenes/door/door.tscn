@@ -1,44 +1,37 @@
 [gd_scene format=3 uid="uid://c3lurj1bfpdm"]
 
 [ext_resource type="Script" uid="uid://eqxtx0hoh4ht" path="res://scenes/door/door.gd" id="1_door"]
-
-[sub_resource type="StandardMaterial3D" id="Mat_frame"]
-albedo_color = Color(0.45, 0.3, 0.2, 1)
+[ext_resource type="Material" uid="uid://crwkt8ajjs4yu" path="res://scenes/door/door_frame_material.tres" id="2_odsy8"]
 
 [sub_resource type="StandardMaterial3D" id="Mat_panel"]
 albedo_color = Color(0.55, 0.38, 0.22, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_panel"]
-size = Vector3(1.5, 2.4, 0.08)
+size = Vector3(1.5, 2.5, 0.08)
 
 [node name="Door" type="Node3D" unique_id=2046775452]
 script = ExtResource("1_door")
 
-[node name="Frame" type="Node3D" parent="." unique_id=2097404214]
+[node name="Frame" type="CSGBox3D" parent="." unique_id=38839699]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
+size = Vector3(1.85, 2.7, 0.15)
+material = ExtResource("2_odsy8")
 
-[node name="PostLeft" type="CSGBox3D" parent="Frame" unique_id=1417645707]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 1.25, 0)
-size = Vector3(0.15, 2.5, 0.15)
-material = SubResource("Mat_frame")
-
-[node name="PostRight" type="CSGBox3D" parent="Frame" unique_id=1483511670]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 1.25, 0)
-size = Vector3(0.15, 2.5, 0.15)
-material = SubResource("Mat_frame")
-
-[node name="Header" type="CSGBox3D" parent="Frame" unique_id=1753156205]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.575, 0)
-size = Vector3(1.85, 0.15, 0.15)
-material = SubResource("Mat_frame")
+[node name="DoorCut" type="CSGBox3D" parent="Frame" unique_id=1116338059]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.10399997, 0)
+operation = 2
+size = Vector3(1.5, 2.5, 0.15)
+material = SubResource("Mat_panel")
 
 [node name="DoorBody" type="AnimatableBody3D" parent="." unique_id=178164092]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="DoorBody" unique_id=1518640334]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 1.2, 0)
-size = Vector3(1.5, 2.4, 0.08)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 1.245752, 0)
+size = Vector3(1.5, 2.5, 0.08)
 material = SubResource("Mat_panel")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DoorBody" unique_id=496139432]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 1.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 1.246, 0)
 shape = SubResource("BoxShape3D_panel")
+debug_fill = false
