@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bxe701a2am5mr"]
+
+[ext_resource type="Script" uid="uid://bya38h0ld1prx" path="res://scenes/objects/physics_ball.gd" id="1_ball"]
+
+[sub_resource type="PhysicsMaterial" id="PhysMat_ball"]
+friction = 0.5
+bounce = 0.8
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5s8f3"]
+radius = 0.25
+
+[sub_resource type="StandardMaterial3D" id="Mat_ball"]
+albedo_color = Color(0.8, 0.1, 0.1, 1)
+
+[node name="PhysicsBall" type="RigidBody3D" unique_id=1075390727]
+collision_layer = 3
+physics_material_override = SubResource("PhysMat_ball")
+continuous_cd = true
+script = ExtResource("1_ball")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=248152671]
+shape = SubResource("SphereShape3D_5s8f3")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=1313171531]
+radius = 0.25
+radial_segments = 24
+rings = 12
+material = SubResource("Mat_ball")

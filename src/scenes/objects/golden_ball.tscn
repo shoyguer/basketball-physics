@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dpiglxh4nolml"]
+
+[ext_resource type="Script" uid="uid://bya38h0ld1prx" path="res://scenes/objects/physics_ball.gd" id="1_ball"]
+
+[sub_resource type="PhysicsMaterial" id="PhysMat_gold"]
+friction = 0.5
+bounce = 0.8
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hv5o7"]
+radius = 0.25
+
+[sub_resource type="StandardMaterial3D" id="Mat_gold"]
+albedo_color = Color(1, 0.84, 0, 1)
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.2
+refraction_enabled = true
+
+[node name="GoldenBall" type="RigidBody3D" unique_id=653196285]
+collision_layer = 3
+physics_material_override = SubResource("PhysMat_gold")
+continuous_cd = true
+script = ExtResource("1_ball")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=802607073]
+shape = SubResource("SphereShape3D_hv5o7")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=1286954503]
+radius = 0.25
+radial_segments = 24
+rings = 12
+material = SubResource("Mat_gold")

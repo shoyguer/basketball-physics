@@ -1,0 +1,305 @@
+[gd_scene format=3 uid="uid://dux3ccha4d782"]
+
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/objects/physics_box.tscn" id="2_box"]
+[ext_resource type="PackedScene" path="res://scenes/objects/physics_ball.tscn" id="3_ball"]
+[ext_resource type="PackedScene" path="res://scenes/door/door.tscn" id="4_door"]
+[ext_resource type="PackedScene" path="res://scenes/basketball_hoop/basketball_hoop.tscn" id="5_hoop"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_floor"]
+albedo_color = Color(0.6, 0.55, 0.45, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_ceiling"]
+albedo_color = Color(0.9, 0.9, 0.88, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_wall"]
+albedo_color = Color(0.82, 0.78, 0.72, 1)
+
+[node name="Room" type="Node3D" unique_id=260588207]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=2130783421]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 0)
+light_energy = 1.2
+omni_range = 10.0
+
+[node name="Geometry" type="Node3D" parent="." unique_id=693503256]
+
+[node name="Floor" type="CSGBox3D" parent="Geometry" unique_id=187203517]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+use_collision = true
+size = Vector3(8, 0.2, 8)
+material = SubResource("Mat_floor")
+
+[node name="Ceiling" type="CSGBox3D" parent="Geometry" unique_id=1880760045]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1, 0)
+use_collision = true
+size = Vector3(8, 0.2, 8)
+material = SubResource("Mat_ceiling")
+
+[node name="WallBack" type="CSGCombiner3D" parent="Geometry" unique_id=1452332028]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3.9)
+use_collision = true
+
+[node name="WallSolid" type="CSGBox3D" parent="Geometry/WallBack" unique_id=252279157]
+size = Vector3(8, 3, 0.2)
+material = SubResource("Mat_wall")
+
+[node name="DoorCut" type="CSGBox3D" parent="Geometry/WallBack" unique_id=1455394813]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.25, 0)
+operation = 2
+size = Vector3(1.7, 2.5, 0.4)
+
+[node name="WallFront" type="CSGBox3D" parent="Geometry" unique_id=930135563]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3.9)
+use_collision = true
+size = Vector3(8, 3, 0.2)
+material = SubResource("Mat_wall")
+
+[node name="WallLeft" type="CSGBox3D" parent="Geometry" unique_id=1517758111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, 1.5, 0)
+use_collision = true
+size = Vector3(0.2, 3, 8)
+material = SubResource("Mat_wall")
+
+[node name="WallRight" type="CSGBox3D" parent="Geometry" unique_id=672450444]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9, 1.5, 0)
+use_collision = true
+size = Vector3(0.2, 3, 8)
+material = SubResource("Mat_wall")
+
+[node name="CorridorFloor" type="CSGBox3D" parent="Geometry" unique_id=1664885240]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.1, -5.95)
+use_collision = true
+size = Vector3(2.1, 0.2, 4.1)
+material = SubResource("Mat_floor")
+
+[node name="CorridorCeiling" type="CSGBox3D" parent="Geometry" unique_id=2079269503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 3.1, -5.95)
+use_collision = true
+size = Vector3(2.1, 0.2, 4.1)
+material = SubResource("Mat_ceiling")
+
+[node name="CorridorWallLeft" type="CSGBox3D" parent="Geometry" unique_id=397378530]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.45, 1.5, -5.95)
+use_collision = true
+size = Vector3(0.2, 3, 4.1)
+material = SubResource("Mat_wall")
+
+[node name="CorridorWallRight" type="CSGBox3D" parent="Geometry" unique_id=1999856135]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 1.5, -5.95)
+use_collision = true
+size = Vector3(0.2, 3, 4.1)
+material = SubResource("Mat_wall")
+
+[node name="Room2FrontWall" type="CSGCombiner3D" parent="Geometry" unique_id=1534432419]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.5, -8)
+use_collision = true
+
+[node name="WallSolid" type="CSGBox3D" parent="Geometry/Room2FrontWall" unique_id=1607498514]
+size = Vector3(8, 3, 0.2)
+material = SubResource("Mat_wall")
+
+[node name="CorridorCut" type="CSGBox3D" parent="Geometry/Room2FrontWall" unique_id=579213538]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+operation = 2
+size = Vector3(1.7, 2.5, 0.4)
+
+[node name="Room2Floor" type="CSGBox3D" parent="Geometry" unique_id=1149589730]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.1, -11.9)
+use_collision = true
+size = Vector3(8, 0.2, 8)
+material = SubResource("Mat_floor")
+
+[node name="Room2Ceiling" type="CSGBox3D" parent="Geometry" unique_id=972340763]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 3.1, -11.9)
+use_collision = true
+size = Vector3(8, 0.2, 8)
+material = SubResource("Mat_ceiling")
+
+[node name="Room2WallBack" type="CSGBox3D" parent="Geometry" unique_id=1288683346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.5, -15.8)
+use_collision = true
+size = Vector3(8, 3, 0.2)
+material = SubResource("Mat_wall")
+
+[node name="Room2WallLeft" type="CSGBox3D" parent="Geometry" unique_id=845148710]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4, 1.5, -11.9)
+use_collision = true
+size = Vector3(0.2, 3, 8)
+material = SubResource("Mat_wall")
+
+[node name="Room2WallRight" type="CSGBox3D" parent="Geometry" unique_id=1292094665]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.5, -11.9)
+use_collision = true
+size = Vector3(0.2, 3, 8)
+material = SubResource("Mat_wall")
+
+[node name="Objects" type="Node3D" parent="." unique_id=1337095705]
+
+[node name="PhysicsBox" parent="Objects" unique_id=1381123762 instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.25, -1.5)
+
+[node name="PhysicsBox2" parent="Objects" unique_id=1623289610 instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.75, -1.5)
+
+[node name="PhysicsBox3" parent="Objects" unique_id=440458735 instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1121395, 1.298862, -0.55087423)
+mass = 3.0
+box_size = Vector3(0.35, 0.35, 0.35)
+
+[node name="PhysicsBox4" parent="Objects" unique_id=1055629384 instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3229349, 0.6117469, 2.6725588)
+mass = 8.0
+box_size = Vector3(0.75, 0.75, 0.75)
+
+[node name="PhysicsBox5" parent="Objects" unique_id=64722614 instance=ExtResource("2_box")]
+transform = Transform3D(0.99989045, 0, -0.014799852, 0, 1, 0, 0.014799852, 0, 0.99989045, 2.2658286, 2.0235262, 2.5)
+mass = 2.0
+box_size = Vector3(0.3, 0.3, 0.3)
+
+[node name="PhysicsBox6" parent="Objects" unique_id=666247026 instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, -2.5)
+mass = 3.5
+box_size = Vector3(0.4, 0.4, 0.4)
+
+[node name="PhysicsBox7" parent="Objects" unique_id=86352886 instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.34934294, -0.5)
+mass = 12.0
+box_size = Vector3(1, 1, 1)
+
+[node name="PhysicsBall" parent="Objects" unique_id=97549580 instance=ExtResource("3_ball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.25, -1)
+
+[node name="PhysicsBall2" parent="Objects" unique_id=1424942891 instance=ExtResource("3_ball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.15, 0.5)
+mass = 0.5
+ball_radius = 0.15
+
+[node name="PhysicsBall3" parent="Objects" unique_id=748500191 instance=ExtResource("3_ball")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.35, -2)
+mass = 2.0
+ball_radius = 0.35
+
+[node name="Room2Objects" type="Node3D" parent="."]
+
+[node name="R2Box1" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8, 0.25, -9.5)
+box_size = Vector3(0.5, 0.5, 0.5)
+
+[node name="R2Box2" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 0.2, -11.0)
+mass = 2.0
+box_size = Vector3(0.3, 0.3, 0.3)
+
+[node name="R2Box3" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0, 0.35, -13.5)
+mass = 8.0
+box_size = Vector3(0.7, 0.7, 0.7)
+
+[node name="R2Box4" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.25, -9.2)
+box_size = Vector3(0.5, 0.5, 0.5)
+
+[node name="R2Box5" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.15, -10.3)
+mass = 1.5
+box_size = Vector3(0.3, 0.3, 0.3)
+
+[node name="R2Box6" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.4, -12.0)
+mass = 10.0
+box_size = Vector3(0.8, 0.8, 0.8)
+
+[node name="R2Box7" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.2, -10.5)
+mass = 2.5
+box_size = Vector3(0.35, 0.35, 0.35)
+
+[node name="R2Box8" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.5, -14.8)
+mass = 12.0
+box_size = Vector3(1.0, 1.0, 1.0)
+
+[node name="R2Box9" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.2, -14.0)
+mass = 3.0
+box_size = Vector3(0.4, 0.4, 0.4)
+
+[node name="R2Box10" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0.25, -14.5)
+box_size = Vector3(0.5, 0.5, 0.5)
+
+[node name="R2Box11" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.3, -15.0)
+mass = 6.0
+box_size = Vector3(0.6, 0.6, 0.6)
+
+[node name="R2Box12" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0.15, -12.2)
+mass = 1.0
+box_size = Vector3(0.25, 0.25, 0.25)
+
+[node name="R2Box13" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0, 0.2, -11.5)
+mass = 2.0
+box_size = Vector3(0.35, 0.35, 0.35)
+
+[node name="R2Box14" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.45, -13.0)
+mass = 9.0
+box_size = Vector3(0.9, 0.9, 0.9)
+
+[node name="R2Box15" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8, 0.25, -10.0)
+box_size = Vector3(0.5, 0.5, 0.5)
+
+[node name="R2Box16" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 0.15, -9.8)
+mass = 1.5
+box_size = Vector3(0.3, 0.3, 0.3)
+
+[node name="R2Box17" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0, 0.35, -14.5)
+mass = 7.0
+box_size = Vector3(0.65, 0.65, 0.65)
+
+[node name="R2Box18" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, -10.0)
+mass = 3.0
+box_size = Vector3(0.4, 0.4, 0.4)
+
+[node name="R2Box19" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 0.25, -9.0)
+mass = 4.0
+box_size = Vector3(0.45, 0.45, 0.45)
+
+[node name="R2Box20" parent="Room2Objects" instance=ExtResource("2_box")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.3, -13.8)
+mass = 5.0
+box_size = Vector3(0.55, 0.55, 0.55)
+
+[node name="Door" parent="." unique_id=1772264260 instance=ExtResource("4_door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -3.8)
+
+[node name="Door2" parent="." instance=ExtResource("4_door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -7.9)
+
+[node name="BasketballHoop" parent="." instance=ExtResource("5_hoop")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -15.625)
+spawn_path = NodePath("../GoldenBallSpawn")
+
+[node name="GoldenBallSpawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="CorridorLight" type="OmniLight3D" parent="." unique_id=1867866655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.6, -5.95)
+light_energy = 0.8
+omni_range = 6.0
+
+[node name="Room2Light" type="OmniLight3D" parent="." unique_id=479075101]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2.6, -11.9)
+light_energy = 1.2
+omni_range = 10.0
+
+[node name="Player" parent="." unique_id=7122863 instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 1.5)
