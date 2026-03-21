@@ -1,4 +1,4 @@
-# Godot 3D Game Example
+# Basketball Physics - Portfolio Project
 Portfolio project of 3D game, with physics based features.
 
 ### Features
