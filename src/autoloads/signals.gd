@@ -4,10 +4,6 @@ extends Node
 ## This holds global signals used throughout the game.
 
 
-## This is a signal example for demonstration purposes.
-@warning_ignore("unused_signal")
-signal signal_example
-
 ## Emitted by BasketballHoop each time a ball scores.
 ## ball_type matches PhysicsBall.BallType (0 = REGULAR, 1 = GOLDEN, 2 = EMERALD).
 ## distance_zone is 1 (close), 2 (mid), or 3 (far).
