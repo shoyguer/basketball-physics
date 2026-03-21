@@ -48,6 +48,7 @@ const SCROLL_STEP: float = 0.025
 ## How much launch power drops per second while an object is held.
 const POWER_DECAY: float = 0.02
 
+## Multiplier for gravity.
 @export var gravity_scale: float = 1.0
 
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
