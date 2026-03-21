@@ -13,14 +13,6 @@ enum BallType { REGULAR, GOLDEN, EMERALD }
 
 ## The type of this ball, used to pick the correct score multiplier.
 @export var ball_type: BallType = BallType.REGULAR
-
-## World position recorded the last time the player released this ball.
-## Used by BasketballHoop to determine which distance zone the shot came from.
-var launch_position: Vector3 = Vector3.ZERO
-
-## True while the player is carrying this ball; used to prevent scoring while held.
-var is_held: bool = false
-
 ## Radius of the ball in metres.
 @export var ball_radius: float = 0.25:
 	set(value):
@@ -28,6 +20,8 @@ var is_held: bool = false
 		if is_node_ready():
 			_apply_size()
 
+var launch_position := Vector3.ZERO
+var is_held: bool = false
 var _highlight := InteractableHelper.new()
 
 
