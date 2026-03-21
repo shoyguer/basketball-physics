@@ -18,6 +18,7 @@ collision_layer = 3
 physics_material_override = ExtResource("1_6jhj3")
 continuous_cd = true
 script = ExtResource("1_ball")
+ball_type = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=802607073]
 shape = SubResource("SphereShape3D_6jhj3")

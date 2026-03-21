@@ -219,6 +219,9 @@ func _drop_held_object() -> void:
 	_held_object.gravity_scale = _held_previous_gravity
 	_held_object.remove_collision_exception_with(self)
 
+	if _held_object is PhysicsBall:
+		(_held_object as PhysicsBall).launch_position = global_position
+
 	if _held_object.has_method("on_released"):
 		_held_object.on_released()
 

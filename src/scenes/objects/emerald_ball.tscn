@@ -29,9 +29,11 @@ shader_parameter/facet_strength = 0.499999988824
 
 [node name="EmeraldBall" type="RigidBody3D" unique_id=712340001]
 collision_layer = 3
+mass = 1.5
 physics_material_override = ExtResource("1_6jhj3")
 continuous_cd = true
 script = ExtResource("1_ball")
+ball_type = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=802607074]
 shape = SubResource("SphereShape3D_bcktl")

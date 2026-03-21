@@ -8,6 +8,16 @@ extends RigidBody3D
 ## an outline and billboard label when the player looks at it.
 
 
+## Identifies the ball type for the scoring multiplier system.
+enum BallType { REGULAR, GOLDEN, EMERALD }
+
+## The type of this ball, used to pick the correct score multiplier.
+@export var ball_type: BallType = BallType.REGULAR
+
+## World position recorded the last time the player released this ball.
+## Used by BasketballHoop to determine which distance zone the shot came from.
+var launch_position: Vector3 = Vector3.ZERO
+
 ## Radius of the ball in metres.
 @export var ball_radius: float = 0.25:
 	set(value):
@@ -21,6 +31,7 @@ var _highlight := InteractableHelper.new()
 func _ready() -> void:
 	_apply_size()
 	if not Engine.is_editor_hint():
+		launch_position = global_position
 		_highlight.setup(self, "[E] Grab")
 
 

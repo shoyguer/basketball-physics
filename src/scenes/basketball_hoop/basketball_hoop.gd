@@ -19,6 +19,9 @@ const GOLDEN_BALL_SCENE: PackedScene = preload("res://scenes/objects/golden_ball
 ## Scene to instantiate as the emerald ball.
 const EMERALD_BALL_SCENE: PackedScene = preload("res://scenes/objects/emerald_ball.tscn")
 
+const MID_SHOT_Z: float = -13.6
+const NEAR_SHOT_Z: float = -11.5
+
 ## Node to spawn the golden ball at when the reward is earned.
 @export var spawn_node: Marker3D = null
 
@@ -59,15 +62,20 @@ func _on_top_zone_exited(body: Node3D) -> void:
 ## Scores a point when a candidate ball exits through the bottom of the rim.
 func _on_bottom_zone_entered(body: Node3D) -> void:
 	if not body is PhysicsBall: return
-	var ball: RigidBody3D = body as RigidBody3D
-	if ball not in _candidates or ball in _recent_balls: return
+	var pb: PhysicsBall = body as PhysicsBall
+	if pb not in _candidates or pb in _recent_balls: return
 
-	_candidates.erase(ball)
-	_recent_balls.append(ball)
-	_score += 1
+	_candidates.erase(pb)
+	_recent_balls.append(pb)
+
+	var distance_zone: int = _get_distance_zone(pb)
+	var multiplier: int = _get_multiplier(pb.ball_type)
+	_score += distance_zone * multiplier
 	_update_label()
 
-	get_tree().create_timer(SCORE_COOLDOWN).timeout.connect(_clear_recent.bind(ball))
+	Signals.ball_scored.emit(pb.ball_type, distance_zone)
+
+	get_tree().create_timer(SCORE_COOLDOWN).timeout.connect(_clear_recent.bind(pb))
 
 	if _score >= GOLDEN_SCORE and not _reward_given:
 		_reward_given = true
@@ -102,3 +110,28 @@ func _spawn_emerald_ball() -> void:
 ## Updates the score label text.
 func _update_label() -> void:
 	_score_label.text = "Score: %d" % [_score]
+
+
+## Returns the score multiplier for the given BallType.
+func _get_multiplier(ball_type: int) -> int:
+	match ball_type:
+		PhysicsBall.BallType.GOLDEN:
+			return 2
+		PhysicsBall.BallType.EMERALD:
+			return 5
+		_:
+			return 1
+
+
+## Returns the distance zone (1–3) based on where the ball was last released.
+## Separators in Room 2 sit at z = –11.5 (far), –13.6 (mid), –15.9 (near hoop).
+## 1 pt: shot from near the hoop, so from first separator forward.
+## 2 pts: mid-court shot, so after second separator but before third separator.
+## 3 pts: long shot from far end, so anything behind last separator.
+func _get_distance_zone(ball: PhysicsBall) -> int:
+	var z: float = ball.launch_position.z
+	if z <= MID_SHOT_Z:
+		return 1
+	elif z <= NEAR_SHOT_Z:
+		return 2
+	return 3
