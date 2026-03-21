@@ -21,6 +21,7 @@ const SPRINT_MULTIPLIER: float = 1.6
 const JUMP_FORCE: float = 4.5
 ## Mouse sensitivity scale for look input.
 const MOUSE_SENSITIVITY: float = 0.002
+
 ## Maximum interaction reach in metres.
 const INTERACT_REACH: float = 3.0
 ## Hold distance when launch power is at maximum (object pulled close).
@@ -35,6 +36,7 @@ const HOLD_SIDE_EASE: float = 4.0
 const HOLD_SPRING: float = 40.0
 ## Damping factor to prevent oscillation while holding.
 const HOLD_DAMP: float = 8.0
+
 ## Impulse strength when the player walks into a rigid body.
 const PUSH_FORCE: float = 2.0
 ## Minimum impulse when launching at zero power.
@@ -193,7 +195,6 @@ func _set_focused(target: Node3D) -> void:
 
 
 #region Grab System
-
 ## Picks up a RigidBody3D and starts carrying it in front of the camera.
 func _grab_object(body: RigidBody3D) -> void:
 	_held_object = body
@@ -290,5 +291,4 @@ func _handle_scroll(event: InputEvent) -> void:
 		return
 
 	_hold_ui.set_power(_launch_power)
-
 #endregion
