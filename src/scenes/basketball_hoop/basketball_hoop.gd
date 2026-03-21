@@ -46,7 +46,8 @@ func _ready() -> void:
 ## Marks the ball as a scoring candidate when it enters the rim from above.
 func _on_top_zone_entered(body: Node3D) -> void:
 	if not body is PhysicsBall: return
-	var ball: RigidBody3D = body as RigidBody3D
+	var ball: PhysicsBall = body as PhysicsBall
+	if ball.is_held: return
 	if ball.linear_velocity.y < 0.0 and ball not in _candidates:
 		_candidates.append(ball)
 
@@ -63,7 +64,7 @@ func _on_top_zone_exited(body: Node3D) -> void:
 func _on_bottom_zone_entered(body: Node3D) -> void:
 	if not body is PhysicsBall: return
 	var pb: PhysicsBall = body as PhysicsBall
-	if pb not in _candidates or pb in _recent_balls: return
+	if pb.is_held or pb not in _candidates or pb in _recent_balls: return
 
 	_candidates.erase(pb)
 	_recent_balls.append(pb)

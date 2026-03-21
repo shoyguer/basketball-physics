@@ -18,6 +18,9 @@ enum BallType { REGULAR, GOLDEN, EMERALD }
 ## Used by BasketballHoop to determine which distance zone the shot came from.
 var launch_position: Vector3 = Vector3.ZERO
 
+## True while the player is carrying this ball; used to prevent scoring while held.
+var is_held: bool = false
+
 ## Radius of the ball in metres.
 @export var ball_radius: float = 0.25:
 	set(value):
@@ -54,11 +57,12 @@ func grab() -> void:
 ## Called when this object is carried by the player.
 func on_grabbed() -> void:
 	_highlight.hide_highlight()
+	is_held = true
 
 
 ## Called when the player drops or launches this object.
 func on_released() -> void:
-	pass
+	is_held = false
 
 
 ## Enables the outline and billboard label.

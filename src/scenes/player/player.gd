@@ -132,7 +132,7 @@ func _handle_movement() -> void:
 #region Interaction
 ## Decides whether to grab, drop, or interact based on the current state.
 func _handle_interact_press() -> void:
-	if _held_object != null:
+	if _held_object:
 		_drop_held_object()
 		return
 
@@ -204,6 +204,9 @@ func _grab_object(body: RigidBody3D) -> void:
 
 	if body.has_method("on_grabbed"):
 		body.on_grabbed()
+
+	if body is PhysicsBall:
+		body.launch_position = Vector3.ZERO
 
 	_launch_power = 0.5
 	_hold_side_t = 0.0
