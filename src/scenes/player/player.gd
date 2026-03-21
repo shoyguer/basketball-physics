@@ -69,6 +69,13 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	# For web builds, because the game will start with mouse uncaptured, 
+	# but we still want to allow clicking to capture and start playing without needing to press a key.
+	if event is InputEventMouseButton and event.pressed:
+		if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			return
+
 	_handle_mouse_look(event)
 	_handle_scroll(event)
 

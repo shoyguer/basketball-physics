@@ -45,7 +45,8 @@ func _input(event: InputEvent) -> void:
 		_update_overlay_visibility()
 	
 	if event.is_action_pressed(&"debug_close"):
-		get_tree().quit()
+		if OS.has_feature("editor"):
+			get_tree().quit()
 
 
 ## Updates the FPS label with the current frames per second.
