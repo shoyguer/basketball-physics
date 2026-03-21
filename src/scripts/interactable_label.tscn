@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://csxa3341ya87r"]
+
+[node name="InteractableLabel" type="Label3D" unique_id=1175314150]
+visible = false
+pixel_size = 0.003
+billboard = 1
+no_depth_test = true
+fixed_size = true
+modulate = Color(1, 1, 1, 0.9)
+text = "Example"
+font_size = 42

@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://bwysp1qtgc7xh"]
 
-[ext_resource type="PhysicsMaterial" uid="uid://cwqocsych6exe" path="res://scenes/objects/physics_ball_material.tres" id="1_6jhj3"]
-[ext_resource type="Script" uid="uid://bya38h0ld1prx" path="res://scenes/objects/physics_ball.gd" id="1_ball"]
-[ext_resource type="Shader" uid="uid://ccnb0ycx6xk27" path="res://shader/emerald.gdshader" id="2_emerald"]
+[ext_resource type="PhysicsMaterial" uid="uid://cwqocsych6exe" path="res://scenes/objects/ball/physics_ball_material.tres" id="1_7hrrf"]
+[ext_resource type="Script" uid="uid://bya38h0ld1prx" path="res://scenes/objects/ball/physics_ball.gd" id="2_3ag4y"]
+[ext_resource type="Shader" uid="uid://ccnb0ycx6xk27" path="res://shader/emerald.gdshader" id="3_ne5ah"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_bcktl"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_7hrrf"]
 radius = 0.25
 
 [sub_resource type="ShaderMaterial" id="Mat_emerald"]
 render_priority = 0
-shader = ExtResource("2_emerald")
+shader = ExtResource("3_ne5ah")
 shader_parameter/deep_color = Color(0.01, 0.28, 0.08, 1)
 shader_parameter/glow_color = Color(0.1, 0.72, 0.22, 1)
 shader_parameter/tint_color = Color(0.05, 0.55, 0.35, 1)
@@ -30,13 +30,13 @@ shader_parameter/facet_strength = 0.499999988824
 [node name="EmeraldBall" type="RigidBody3D" unique_id=712340001]
 collision_layer = 3
 mass = 1.5
-physics_material_override = ExtResource("1_6jhj3")
+physics_material_override = ExtResource("1_7hrrf")
 continuous_cd = true
-script = ExtResource("1_ball")
+script = ExtResource("2_3ag4y")
 ball_type = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=802607074]
-shape = SubResource("SphereShape3D_bcktl")
+shape = SubResource("SphereShape3D_7hrrf")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=1286954504]
 radius = 0.25

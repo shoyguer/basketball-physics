@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://dux3ccha4d782"]
 
 [ext_resource type="PackedScene" uid="uid://e7sofyruoq6o" path="res://scenes/player/player.tscn" id="1_player"]
-[ext_resource type="PackedScene" path="res://scenes/objects/physics_box.tscn" id="2_box"]
-[ext_resource type="PhysicsMaterial" uid="uid://cm2q8nq3nov37" path="res://scenes/objects/physics_box_material.tres" id="2_w7vtx"]
-[ext_resource type="PackedScene" uid="uid://bxe701a2am5mr" path="res://scenes/objects/physics_ball.tscn" id="3_ball"]
+[ext_resource type="PackedScene" path="res://scenes/objects/box/physics_box.tscn" id="2_box"]
+[ext_resource type="PhysicsMaterial" uid="uid://cm2q8nq3nov37" path="res://scenes/objects/box/physics_box_material.tres" id="2_w7vtx"]
+[ext_resource type="PackedScene" uid="uid://bxe701a2am5mr" path="res://scenes/objects/ball/physics_ball.tscn" id="3_ball"]
 [ext_resource type="PackedScene" uid="uid://c3lurj1bfpdm" path="res://scenes/door/door.tscn" id="4_door"]
 [ext_resource type="PackedScene" uid="uid://btdp6sq8v6yln" path="res://scenes/basketball_hoop/basketball_hoop.tscn" id="5_hoop"]
+[ext_resource type="PackedScene" uid="uid://dpiglxh4nolml" path="res://scenes/objects/ball/golden_ball.tscn" id="7_7jj40"]
+[ext_resource type="PackedScene" uid="uid://bwysp1qtgc7xh" path="res://scenes/objects/ball/emerald_ball.tscn" id="8_dv301"]
 
 [sub_resource type="Environment" id="Env_room"]
 background_mode = 1
@@ -321,3 +323,9 @@ omni_range = 14.0
 
 [node name="Player" parent="." unique_id=7122863 instance=ExtResource("1_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 1.5)
+
+[node name="GoldenBall" parent="." unique_id=653196285 instance=ExtResource("7_7jj40")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5990989, 0.25000024, 1.1098026)
+
+[node name="EmeraldBall" parent="." unique_id=712340001 instance=ExtResource("8_dv301")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0885942, 0.25000012, 1.8351109)

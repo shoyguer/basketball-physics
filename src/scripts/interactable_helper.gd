@@ -7,6 +7,8 @@ extends RefCounted
 ## and [method hide_highlight] to toggle the visual cues.
 
 
+const _LABEL_SCENE: PackedScene = preload("res://scripts/interactable_label.tscn")
+
 var _owner: Node3D = null
 var _label: Label3D = null
 var _outline_material: ShaderMaterial = null
@@ -20,14 +22,8 @@ func setup(owner: Node3D, label_text: String) -> void:
 	_outline_material = ShaderMaterial.new()
 	_outline_material.shader = preload("res://shader/outline.gdshader")
 
-	_label = Label3D.new()
+	_label = _LABEL_SCENE.instantiate()
 	_label.text = label_text
-	_label.font_size = 48
-	_label.pixel_size = 0.003
-	_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	_label.no_depth_test = true
-	_label.visible = false
-	_label.modulate = Color(1.0, 1.0, 1.0, 0.9)
 	owner.add_child(_label)
 
 	_cache_geometries(owner)

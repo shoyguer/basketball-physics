@@ -1,54 +1,63 @@
 [gd_scene format=3 uid="uid://cscorehud0001"]
 
-[ext_resource type="Script" path="res://ui/score_hud.gd" id="1_scorehud"]
+[ext_resource type="Script" uid="uid://bsj80wjrm4xhq" path="res://ui/score_hud.gd" id="1_scorehud"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
 bg_color = Color(0.05, 0.05, 0.05, 0.72)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
-content_margin_left = 10.0
-content_margin_top = 8.0
-content_margin_right = 10.0
-content_margin_bottom = 8.0
 
-[node name="ScoreHUD" type="Control"]
+[node name="ScoreHUD" type="Control" unique_id=1847479762]
 layout_mode = 3
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 0.0
 anchor_right = 1.0
-anchor_bottom = 0.0
 offset_left = -170.0
-offset_top = 16.0
+offset_top = 48.0
 offset_right = -16.0
-offset_bottom = 106.0
+offset_bottom = 138.0
 grow_horizontal = 0
 mouse_filter = 2
 script = ExtResource("1_scorehud")
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." unique_id=39457619]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -15.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
-[node name="VBox" type="VBoxContainer" parent="Panel"]
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=2079254089]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Regular" type="Label" parent="Panel/VBox"]
+[node name="Label" type="Label" parent="Panel/VBox" unique_id=1578462856]
+layout_mode = 2
+text = "Baskets scored"
+horizontal_alignment = 1
+
+[node name="Regular" type="Label" parent="Panel/VBox" unique_id=268530182]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.1, 0.1, 1)
 text = "Regular: 0"
 
-[node name="Golden" type="Label" parent="Panel/VBox"]
+[node name="Golden" type="Label" parent="Panel/VBox" unique_id=509304999]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0, 1)
 text = "Golden: 0"
 
-[node name="Emerald" type="Label" parent="Panel/VBox"]
+[node name="Emerald" type="Label" parent="Panel/VBox" unique_id=586183779]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.1, 0.72, 0.22, 1)
 text = "Emerald: 0"

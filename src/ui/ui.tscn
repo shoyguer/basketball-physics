@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dmvnilye277ja"]
 
 [ext_resource type="Script" uid="uid://drplonqd8nwlb" path="res://ui/ui.gd" id="1_holdui"]
+[ext_resource type="Texture2D" uid="uid://bgeky6nal638i" path="res://ui/crosshair.png" id="2_ks8t7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill"]
 bg_color = Color(0, 1, 0, 1)
@@ -10,7 +11,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [node name="UI" type="Control" unique_id=191305752]
-visible = false
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,96 +21,122 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_holdui")
 
-[node name="PowerBar" type="ProgressBar" parent="." unique_id=1506283438]
+[node name="Crosshair" type="TextureRect" parent="." unique_id=1210396124]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_ks8t7")
+
+[node name="HoldingObject" type="Control" parent="." unique_id=1475700313]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PowerBar" type="ProgressBar" parent="HoldingObject" unique_id=1506283438]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -246.0
-offset_top = -60.0
-offset_right = 246.0
-offset_bottom = -40.0
+offset_left = 374.0
+offset_top = 620.0
+offset_right = 866.0
+offset_bottom = 640.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/fill = SubResource("StyleBoxFlat_fill")
 value = 50.0
 show_percentage = false
 
-[node name="Tick20" type="ColorRect" parent="PowerBar" unique_id=598084241]
+[node name="Tick20" type="ColorRect" parent="HoldingObject/PowerBar" unique_id=598084241]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_left = 98.0
 offset_right = 100.0
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.4509804)
 
-[node name="Tick40" type="ColorRect" parent="PowerBar" unique_id=1016756164]
+[node name="Tick40" type="ColorRect" parent="HoldingObject/PowerBar" unique_id=1016756164]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_left = 197.0
 offset_right = 199.0
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.4509804)
 
-[node name="Tick60" type="ColorRect" parent="PowerBar" unique_id=619820393]
+[node name="Tick60" type="ColorRect" parent="HoldingObject/PowerBar" unique_id=619820393]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_left = 295.0
 offset_right = 297.0
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.4509804)
 
-[node name="Tick80" type="ColorRect" parent="PowerBar" unique_id=1910875307]
+[node name="Tick80" type="ColorRect" parent="HoldingObject/PowerBar" unique_id=1910875307]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_left = 394.0
 offset_right = 396.0
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.4509804)
 
-[node name="Tick100" type="ColorRect" parent="PowerBar" unique_id=1142701873]
+[node name="Tick100" type="ColorRect" parent="HoldingObject/PowerBar" unique_id=1142701873]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_left = 490.0
 offset_right = 492.0
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.4509804)
 
-[node name="PowerBarLabel" type="Label" parent="." unique_id=1256307566]
+[node name="PowerBarLabel" type="Label" parent="HoldingObject" unique_id=1256307566]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -246.0
-offset_top = -82.0
-offset_right = 246.0
-offset_bottom = -62.0
+offset_left = 374.0
+offset_top = 595.0
+offset_right = 866.0
+offset_bottom = 618.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Throw Strength"
 horizontal_alignment = 1
 
-[node name="HoldHints" type="VBoxContainer" parent="." unique_id=1350905513]
+[node name="HoldHints" type="VBoxContainer" parent="HoldingObject" unique_id=1350905513]
 layout_mode = 0
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = -88.0
+offset_top = 592.0
 offset_right = 240.0
-offset_bottom = -16.0
+offset_bottom = 664.0
 grow_vertical = 0
 
-[node name="DropHint" type="Label" parent="HoldHints" unique_id=600591923]
+[node name="DropHint" type="Label" parent="HoldingObject/HoldHints" unique_id=600591923]
 layout_mode = 2
 text = "[E]  Drop"
 
-[node name="ThrowHint" type="Label" parent="HoldHints" unique_id=87849835]
+[node name="ThrowHint" type="Label" parent="HoldingObject/HoldHints" unique_id=87849835]
 layout_mode = 2
 text = "[Left Click]  Throw"

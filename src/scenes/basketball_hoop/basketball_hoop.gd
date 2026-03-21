@@ -15,9 +15,9 @@ const EMERALD_SCORE: int = 25
 ## Seconds before a ball can score again after a successful shot.
 const SCORE_COOLDOWN: float = 1.0
 ## Scene to instantiate as the golden ball.
-const GOLDEN_BALL_SCENE: PackedScene = preload("res://scenes/objects/golden_ball.tscn")
+const GOLDEN_BALL_SCENE: PackedScene = preload("res://scenes/objects/ball/golden_ball.tscn")
 ## Scene to instantiate as the emerald ball.
-const EMERALD_BALL_SCENE: PackedScene = preload("res://scenes/objects/emerald_ball.tscn")
+const EMERALD_BALL_SCENE: PackedScene = preload("res://scenes/objects/ball/emerald_ball.tscn")
 
 const MID_SHOT_Z: float = -13.6
 const NEAR_SHOT_Z: float = -11.5

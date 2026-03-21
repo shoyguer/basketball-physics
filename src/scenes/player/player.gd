@@ -211,7 +211,7 @@ func _grab_object(body: RigidBody3D) -> void:
 
 	_launch_power = 0.5
 	_hold_side_t = 0.0
-	_hold_ui.show()
+	_hold_ui.holding_object.show()
 	_hold_ui.set_power(_launch_power)
 	_set_focused(null)
 
@@ -230,7 +230,7 @@ func _drop_held_object() -> void:
 		_held_object.on_released()
 
 	_held_object = null
-	_hold_ui.hide()
+	_hold_ui.holding_object.hide()
 
 
 ## Launches the held object forward with force based on the power meter.
