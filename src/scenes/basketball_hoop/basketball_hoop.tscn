@@ -67,6 +67,7 @@ shape = SubResource("CylinderShape3D_score")
 
 [node name="ScoreLabel" type="Label3D" parent="." unique_id=1703270278]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7740798, 0.12631708)
+visible = false
 pixel_size = 0.003
 modulate = Color(1, 1, 0.2, 1)
 text = "Score: 0 / 10"

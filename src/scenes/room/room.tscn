@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bxe701a2am5mr" path="res://scenes/objects/ball/physics_ball.tscn" id="3_ball"]
 [ext_resource type="PackedScene" uid="uid://c3lurj1bfpdm" path="res://scenes/door/door.tscn" id="4_door"]
 [ext_resource type="PackedScene" uid="uid://btdp6sq8v6yln" path="res://scenes/basketball_hoop/basketball_hoop.tscn" id="5_hoop"]
+[ext_resource type="PackedScene" uid="uid://e7sofyruoq6o" path="res://scenes/player/player.tscn" id="6_w7vtx"]
 
 [sub_resource type="Environment" id="Env_room"]
 background_mode = 1
@@ -317,3 +318,6 @@ omni_range = 14.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 8, -17.5)
 light_energy = 1.5
 omni_range = 14.0
+
+[node name="Player" parent="." unique_id=477170345 instance=ExtResource("6_w7vtx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43692896, 0, 0.5256431)

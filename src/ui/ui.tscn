@@ -140,3 +140,11 @@ text = "[E]  Drop"
 [node name="ThrowHint" type="Label" parent="HoldingObject/HoldHints" unique_id=87849835]
 layout_mode = 2
 text = "[Left Click]  Throw"
+
+[node name="PlusStrengthHint" type="Label" parent="HoldingObject/HoldHints" unique_id=790653617]
+layout_mode = 2
+text = "[Scroll Down]  Decrease Strength"
+
+[node name="MinusStrengthHint" type="Label" parent="HoldingObject/HoldHints" unique_id=676561537]
+layout_mode = 2
+text = "[Scroll Up]  Increase Strength"
