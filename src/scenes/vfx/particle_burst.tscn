@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://b1mqmd3lk6c5f"]
+
+[ext_resource type="Script" uid="uid://fn5pkl5duk4x" path="res://scenes/vfx/particle_burst.gd" id="1_burst"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_burst"]
+albedo_color = Color(1, 0.8, 0.1, 1)
+roughness = 0.4
+emission_enabled = true
+emission = Color(1, 0.6, 0, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_burst"]
+material = SubResource("StandardMaterial3D_burst")
+radius = 0.12
+height = 0.24
+radial_segments = 6
+rings = 4
+
+[sub_resource type="Curve" id="Curve_scale"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_color"]
+offsets = PackedFloat32Array(0, 0, 1)
+colors = PackedColorArray(1, 0.9, 0.3, 1, 1, 0.2, 0, 0, 1, 0.5, 0, 1)
+
+[node name="ParticleBurst" type="Node3D" unique_id=1951357719]
+script = ExtResource("1_burst")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="." unique_id=66012819]
+emitting = false
+amount = 100
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("SphereMesh_burst")
+emission_shape = 1
+emission_sphere_radius = 0.3
+direction = Vector3(0, 1, 0)
+spread = 180.0
+gravity = Vector3(0, -4, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 6.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+scale_amount_min = 0.2
+scale_amount_max = 0.5
+scale_amount_curve = SubResource("Curve_scale")
+color = Color(1, 0.9, 0.2, 1)
+color_ramp = SubResource("Gradient_color")

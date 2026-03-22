@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c3lurj1bfpdm" path="res://scenes/door/door.tscn" id="4_door"]
 [ext_resource type="PackedScene" uid="uid://btdp6sq8v6yln" path="res://scenes/basketball_hoop/basketball_hoop.tscn" id="5_hoop"]
 [ext_resource type="PackedScene" uid="uid://e7sofyruoq6o" path="res://scenes/player/player.tscn" id="6_w7vtx"]
+[ext_resource type="PackedScene" uid="uid://dp600sbaedvi3" path="res://scenes/mode_selector/mode_selector.tscn" id="7_mode"]
 
 [sub_resource type="Environment" id="Env_room"]
 background_mode = 1
@@ -337,3 +338,6 @@ spawn_node = NodePath("../GoldenBallSpawn")
 
 [node name="GoldenBallSpawn" type="Marker3D" parent="Room2" unique_id=26044892]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="ModeSelector" parent="Room2" unique_id=999999010 instance=ExtResource("7_mode")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.9687545, 0.6, -10)

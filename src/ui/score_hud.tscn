@@ -61,3 +61,44 @@ text = "Golden: 0"
 layout_mode = 2
 theme_override_colors/font_color = Color(0.1, 0.72, 0.22, 1)
 text = "Emerald: 0"
+
+[node name="HSeparator" type="HSeparator" parent="Panel/VBox" unique_id=999999001]
+layout_mode = 2
+
+[node name="Streak" type="Label" parent="Panel/VBox" unique_id=999999002]
+layout_mode = 2
+text = "Streak: 0"
+
+[node name="Accuracy" type="Label" parent="Panel/VBox" unique_id=999999003]
+layout_mode = 2
+text = "Accuracy: 0%"
+
+[node name="TimedPanel" type="PanelContainer" parent="." unique_id=999999004]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -170.0
+offset_top = 200.0
+offset_right = -16.0
+offset_bottom = 290.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="TimedPanel" unique_id=999999005]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="TimedPanel/VBox" unique_id=999999006]
+layout_mode = 2
+text = "TIMED MODE"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(1, 0.5, 0, 1)
+
+[node name="TimeLabel" type="Label" parent="TimedPanel/VBox" unique_id=999999007]
+layout_mode = 2
+text = "Time: 60"
+
+[node name="TimedScore" type="Label" parent="TimedPanel/VBox" unique_id=999999008]
+layout_mode = 2
+text = "Score: 0"

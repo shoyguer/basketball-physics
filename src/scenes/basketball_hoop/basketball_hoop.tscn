@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://btdp6sq8v6yln"]
 
 [ext_resource type="Script" uid="uid://dxpep6gj8l5d7" path="res://scenes/basketball_hoop/basketball_hoop.gd" id="1_hoop"]
+[ext_resource type="PackedScene" uid="uid://b1mqmd3lk6c5f" path="res://scenes/vfx/particle_burst.tscn" id="2_vfx"]
 
 [sub_resource type="StandardMaterial3D" id="Mat_post"]
 albedo_color = Color(0.3, 0.3, 0.3, 1)
@@ -71,3 +72,6 @@ pixel_size = 0.003
 modulate = Color(1, 1, 0.2, 1)
 text = "Score: 0 / 10"
 font_size = 80
+
+[node name="ScoreVFX" parent="." unique_id=1291928525 instance=ExtResource("2_vfx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.074011, 0.35)

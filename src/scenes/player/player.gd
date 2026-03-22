@@ -70,8 +70,8 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	# For web builds, because the game will start with mouse uncaptured, 
-	# but we still want to allow clicking to capture and start playing without needing to press a key.
+	if GameManager.ui_is_open: return
+	
 	if event is InputEventMouseButton and event.pressed:
 		if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -91,6 +91,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if GameManager.ui_is_open: return
+	
 	_apply_gravity(delta)
 	_handle_jump()
 	_handle_movement()
@@ -251,6 +253,9 @@ func _launch_held_object() -> void:
 
 	_drop_held_object()
 	body.apply_central_impulse(launch_dir * force)
+	
+	# Track shot attempt
+	Signals.shot_attempted.emit()
 
 
 ## Applies an impulse to any rigid body the player walks into.

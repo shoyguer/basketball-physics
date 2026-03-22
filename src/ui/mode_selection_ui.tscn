@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://dp600sbaj3vi3"]
+
+[ext_resource type="Script" uid="uid://duf4pedt3eaco" path="res://ui/mode_selection_ui.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bgkte"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 0, 0, 0.627451)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="ModeSelectionUI" type="CanvasLayer" unique_id=1377177535]
+layer = 100
+follow_viewport_enabled = false
+
+[node name="Control" type="Control" parent="." unique_id=1377177536]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+top_level = true
+script = ExtResource("1_script")
+
+[node name="Panel" type="PanelContainer" parent="Control" unique_id=308261325]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -150.0
+offset_right = 250.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bgkte")
+
+[node name="VBox" type="VBoxContainer" parent="Control/Panel" unique_id=1089433635]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Title" type="Label" parent="Control/Panel/VBox" unique_id=516875252]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Select Game Mode"
+horizontal_alignment = 1
+
+[node name="ModeButtons" type="VBoxContainer" parent="Control/Panel/VBox" unique_id=2047082761]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CountdownLabel" type="Label" parent="Control/Panel/VBox" unique_id=1263097170]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.5, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Starting in 3..."
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="Control" unique_id=1922462786]
+process_callback = 0
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=429858826]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.7529412)

@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://dp600sbaedvi3"]
+
+[ext_resource type="Script" uid="uid://bwgbf7finst2t" path="res://scenes/mode_selector/mode_selector.gd" id="1_script"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_console"]
+albedo_color = Color(0.2, 0.25, 0.3, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l0bim"]
+albedo_color = Color(0.042399995, 0.061199997, 0.08, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape_console"]
+size = Vector3(1.2675781, 1.4347656, 0.4)
+
+[node name="ModeSelector" type="StaticBody3D" unique_id=728998644]
+script = ExtResource("1_script")
+
+[node name="Console" type="CSGBox3D" parent="." unique_id=1585090139]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22033691, 0)
+use_collision = true
+size = Vector3(1.2685547, 1.4406738, 0.4)
+material = SubResource("Mat_console")
+
+[node name="Screen" type="CSGBox3D" parent="." unique_id=378048261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6110973, 0.21)
+size = Vector3(1.201416, 0.61101073, 0.05)
+material = SubResource("StandardMaterial3D_l0bim")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1525192276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22305173, 0)
+shape = SubResource("BoxShape_console")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1364683792]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6313693, 0.25)
+pixel_size = 0.002
+text = "Free Play"
+font_size = 48
+outline_size = 2

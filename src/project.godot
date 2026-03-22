@@ -25,6 +25,7 @@ config/icon="res://icon.svg"
 Global="*res://autoloads/global.gd"
 Signals="*res://autoloads/signals.gd"
 Overlay="*res://autoloads/overlay/overlay.tscn"
+GameManager="*res://autoloads/game_manager/game_manager.tscn"
 
 [display]
 

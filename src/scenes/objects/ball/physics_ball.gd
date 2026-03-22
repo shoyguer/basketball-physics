@@ -30,6 +30,14 @@ func _ready() -> void:
 	if not Engine.is_editor_hint():
 		launch_position = global_position
 		_highlight.setup(self, "[E] Grab")
+		body_entered.connect(_on_body_entered)
+
+
+func _on_body_entered(body: Node) -> void:
+	# Break streak if ball hits floor with significant velocity
+	if body.is_in_group("floor") or body.name == "Floor":
+		if linear_velocity.length() > 1.0:
+			GameManager.break_streak()
 
 
 ## Updates collision and mesh to match [member ball_radius].

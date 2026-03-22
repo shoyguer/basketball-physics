@@ -8,6 +8,8 @@ extends Node3D
 ## Reaching [constant EMERALD_SCORE] spawns an emerald ball reward.
 
 
+
+
 ## Points needed to earn the golden ball reward.
 const GOLDEN_SCORE: int = 10
 ## Points needed to earn the emerald ball reward.
@@ -34,6 +36,7 @@ var _candidates: Array[RigidBody3D] = []
 @onready var _score_label: Label3D = $ScoreLabel
 @onready var _top_zone: Area3D = $TopZone
 @onready var _bottom_zone: Area3D = $BottomZone
+@onready var _score_vfx: ParticleBurst = $ScoreVFX
 
 
 func _ready() -> void:
@@ -75,6 +78,8 @@ func _on_bottom_zone_entered(body: Node3D) -> void:
 	_update_label()
 
 	Signals.ball_scored.emit(pb.ball_type, distance_zone)
+
+	_spawn_score_vfx()
 
 	get_tree().create_timer(SCORE_COOLDOWN).timeout.connect(_clear_recent.bind(pb))
 
@@ -136,3 +141,8 @@ func _get_distance_zone(ball: PhysicsBall) -> int:
 	elif z <= NEAR_SHOT_Z:
 		return 2
 	return 3
+
+
+## Triggers the score VFX particle burst.
+func _spawn_score_vfx() -> void:
+	_score_vfx.play()
